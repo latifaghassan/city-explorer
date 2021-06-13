@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 
 class App extends React.Component {
@@ -24,16 +25,18 @@ class App extends React.Component {
 
   getCityData = async (e) => {
     e.preventDefault();
-
-    const axiosResponse = await axios.get(
-      `https://us1.locationiq.com/v1/search.php?key=pk.d36871f015649f915282f374cff76628&city=${this.state.cityName}&format=json`
-    );
-
-    console.log(axiosResponse);
-    this.setState({
-      cityData: axiosResponse.data[0],
-      displayData: true,
-    });
+    try {
+      const axiosResponse = await axios.get(
+        `https://us1.locationiq.com/v1/search.php?key=pk.d36871f015649f915282f374cff76628&city=${this.state.cityName}&format=json`
+      );
+      this.setState({
+        cityData: axiosResponse.data[0],
+        displayData: true,
+        error: false,
+      });
+    } catch {
+      this.setState({ error: true });
+    }
   };
 
   render() {
@@ -60,19 +63,20 @@ class App extends React.Component {
           </Button>
         </Form>
 
-        {this.state.displayData && (
-          <div>
-            <p className="city1">{this.state.cityData.display_name}</p>
-            <p className="city">{this.state.cityData.lat}</p>
-            <p className="city">{this.state.cityData.lon}</p>
+        {(this.state.error && <p className="error">ERROR!</p>) ||
+          (this.state.displayData && (
+            <div>
+              <p className="city">{this.state.cityData.display_name}</p>
+              <p className="city">{this.state.cityData.lat}</p>
+              <p className="city">{this.state.cityData.lon}</p>
 
-            <img
-              className="map"
-              src={`https://maps.locationiq.com/v3/staticmap?key=pk.d36871f015649f915282f374cff76628&q&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=15`}
-              alt=""
-            />
-          </div>
-        )}
+              <img
+                className="map"
+                src={`https://maps.locationiq.com/v3/staticmap?key=pk.d36871f015649f915282f374cff76628&q&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=15`}
+                alt=""
+              />
+            </div>
+          ))}
 
         <Footer />
       </div>
