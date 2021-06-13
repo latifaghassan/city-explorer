@@ -26,3 +26,15 @@ The application now is reach to the API information related to the cities and yo
 ## Credit and Collaborations
 
 Abduallah AlAbd, Osama AlAli.
+
+---
+
+Name of feature: City-explorer
+
+Estimate of time needed to complete: 1
+
+Start time: 3
+
+Finish time: 5
+
+Actual time needed to complete: 6
