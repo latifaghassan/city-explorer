@@ -44,3 +44,10 @@ code {
   margin-right: 20%;
   margin-left: 46%;
 }
+
+.error {
+  margin-right: 20%;
+  margin-left: 45%;
+  font-size: 50px;
+  color: red;
+}
