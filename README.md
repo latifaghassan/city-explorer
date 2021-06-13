@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+<!-- # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -67,4 +67,33 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 ### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify) -->
+
+# City-Explorer :
+
+**Author**: Latifa Ghassan
+**Version**: 1.0.0
+
+## Overview
+
+- It is a website that the user can explore information about selected city and their latitude and longitude.
+
+## Getting Started
+
+- having the link of the website.
+
+## Architecture
+
+- React Bootsraps.
+- GitHub
+- Terminal / Ubunto
+- LocationQ
+- Netlify
+
+## Change Log
+
+The application now is reach to the API information related to the cities and you can explore it now.
+
+## Credit and Collaborations
+
+Abduallah AlAbd, Osama AlAli.
