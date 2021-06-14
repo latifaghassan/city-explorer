@@ -33,17 +33,20 @@ class App extends React.Component {
 
   getCityData = async (e) => {
     e.preventDefault();
-    let myApiResponse = process.env.REACT_APP_URL;
-    let url = `${myApiResponse}/weather-data?lat=-33.87&lon=151.21&searchQuery=${this.cityName}`;
+
     try {
       const axiosResponse = await axios.get(
         `https://us1.locationiq.com/v1/search.php?key=pk.d36871f015649f915282f374cff76628&city=${this.state.cityName}&format=json`
       );
-      let myApiResponse = await axios.get(url);
+
+      const myApiResponse = process.env.REACT_APP_URL;
+      const url = `${myApiResponse}/weather-data?lat=-33.87&lon=151.21&searchQuery=${this.cityName}`;
+
+      const data = await axios.get(url);
 
       this.setState({
         cityData: axiosResponse.data[0],
-        weatherData: myApiResponse.data.data,
+        weatherData: myApiResponse.data.data[0],
         displayData: true,
         error: false,
       });
@@ -65,22 +68,15 @@ class App extends React.Component {
         {(this.state.error && <AlertMessage />) ||
           (this.state.displayData && (
             <div>
-              <Map
-                cityData={this.state.cityData}
-                weatherData={this.state.weatherData}
-              />
+              <Map cityData={this.state.cityData} />
 
               <CityData cityData={this.state.cityData} />
 
-              {this.state.weatherData.map((value) => {
-                return (
-                  <Forcast
-                    Temperature={this.value.weatherData.temp}
-                    Weather={this.value.weatherData.weather.description}
-                    Date={this.value.state.weatherData.datetime}
-                  />
-                );
-              })}
+              <Forcast
+                temperature={this.state.weatherData.temp}
+                weather={this.state.weatherData.weather.description}
+                date={this.state.weatherData.datetime}
+              />
             </div>
           ))}
 
