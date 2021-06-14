@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import axios from "axios";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-
 import "bootstrap/dist/css/bootstrap.min.css";
+
+import AlertMessage from "./components/AlertMessage";
+import SearchForm from "./components/SearchForm";
+import CityData from "./components/CityData";
+import Map from "./components/Map";
 
 class App extends React.Component {
   constructor(props) {
@@ -14,6 +16,7 @@ class App extends React.Component {
       cityName: "",
       cityData: {},
       displayData: false,
+      error: false,
     };
   }
 
@@ -44,37 +47,17 @@ class App extends React.Component {
       <div>
         <Header />
 
-        <Form onSubmit={this.getCityData} className="form">
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>City Name:</Form.Label>
-            <Form.Control
-              onChange={this.updateCityNameState}
-              type="text"
-              placeholder="write a name of a city"
-            />
-          </Form.Group>
+        <SearchForm
+          getCityData={this.getCityData}
+          updateCityNameState={this.updateCityNameState}
+        />
 
-          <Form.Group
-            className="mb-3"
-            controlId="formBasicCheckbox"
-          ></Form.Group>
-          <Button className="button" variant="primary" type="submit">
-            Explore!
-          </Button>
-        </Form>
-
-        {(this.state.error && <p className="error">ERROR!</p>) ||
+        {(this.state.error && <AlertMessage error={this.state.error} />) ||
           (this.state.displayData && (
             <div>
-              <p className="city">{this.state.cityData.display_name}</p>
-              <p className="city">{this.state.cityData.lat}</p>
-              <p className="city">{this.state.cityData.lon}</p>
+              <Map cityData={this.state.cityData} />
 
-              <img
-                className="map"
-                src={`https://maps.locationiq.com/v3/staticmap?key=pk.d36871f015649f915282f374cff76628&q&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=15`}
-                alt=""
-              />
+              <CityData cityData={this.state.cityData} />
             </div>
           ))}
 
