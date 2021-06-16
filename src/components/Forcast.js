@@ -27,3 +27,5 @@ export class Forcast extends Component {
 }
 
 export default Forcast;
+
+// http://api.weatherbit.io/v2.0/forecast/daily?city=${cityName}&key=${key}
