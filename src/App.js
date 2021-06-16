@@ -19,11 +19,12 @@ class App extends React.Component {
       alert: false,
       error: "",
       weatherData: "",
+      moviesData: [],
 
-      lat: "",
-      lon: "",
+      // lat: "",
+      // lon: "",
 
-      error: false,
+      error: "",
     };
   }
 
@@ -36,27 +37,75 @@ class App extends React.Component {
   getCityData = async (e) => {
     e.preventDefault();
 
-    try {
-      const axiosResponse = await axios.get(
-        `https://us1.locationiq.com/v1/search.php?key=pk.d36871f015649f915282f374cff76628&city=${this.state.cityName}&format=json`
-      );
+    // JSON FILE API (WEATHER1)
+    const axiosResponse = `https://us1.locationiq.com/v1/search.php?key=pk.d36871f015649f915282f374cff76628&city=${this.state.cityName}&format=json`;
 
-      const myApiResponse = await axios.get(
-        `${process.env.REACT_APP_URL}/weather` // connect it to the backend
-      );
+    // MY API (WEATHER2)
+    const myApiResponse = `${process.env.REACT_APP_URL}/weather`;
 
-      this.setState({
-        cityData: axiosResponse.data[0],
-        weatherData: myApiResponse.data, // we target here the request data // this is the data that we got from the backend.
-        displayData: true,
-        alert: false,
+    // SITE API (WEATHER3)
+    const weather2Url = `${myApiResponse}/weather2?searchQuery=${this.state.cityName}`;
+
+    // (MOVIES)
+    const movieURL = `${myApiResponse}/movies?searchQuery=${this.state.cityName}`;
+
+    //-----------------------------------------------------------------/
+
+    // we target here the request data // this is the data that we got from the backend.
+
+    // JSON FILE API (WEATHER1)
+    axios
+      .get(axiosResponse)
+      .then((data) => {
+        this.setState({ cityData: axiosResponse.data[0], error: "" });
+      })
+      .catch((error) => {
+        this.setState({ error: "There is an error" });
       });
-    } catch {
-      this.setState({
-        error: true,
+
+    // MY API (WEATHER2)
+    axios
+      .get(myApiResponse)
+      .then((data) => {
+        this.setState({
+          weatherData: myApiResponse.data,
+          displayData: true,
+          error: "",
+        });
+      })
+      .catch((error) => {
+        this.setState({ error: "There is an error" });
       });
-    }
+
+    // SITE API (WEATHER3)
+    axios
+      .get(weather2Url)
+      .then((data) => {
+        this.setState({
+          weatherData2: weather2Url.data.data[0],
+          displayData: true,
+          error: "",
+        });
+      })
+      .catch((error) => {
+        this.setState({ error: "There is an error" });
+      });
+
+    // (MOVIES)
+    axios
+      .get(movieURL)
+      .then((data) => {
+        this.setState({
+          moviesData: movieURL.data.data,
+          displayData: true,
+          error: "",
+        });
+      })
+      .catch((error) => {
+        this.setState({ error: "There is an error" });
+      });
   };
+
   render() {
     return (
       <div>
