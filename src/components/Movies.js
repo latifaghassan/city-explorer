@@ -4,7 +4,7 @@ export class Movies extends Component {
   render() {
     return (
       <>
-        {this.state.moviesData.map((item) => {
+        {this.props.movies.map((item) => {
           return (
             <>
               <figure>

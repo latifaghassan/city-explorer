@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
-
 export class Forcast extends Component {
   render() {
     return (
@@ -25,7 +24,4 @@ export class Forcast extends Component {
     );
   }
 }
-
 export default Forcast;
-
-// http://api.weatherbit.io/v2.0/forecast/daily?city=${cityName}&key=${key}
