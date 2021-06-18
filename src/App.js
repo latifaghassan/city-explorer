@@ -18,14 +18,11 @@ class App extends React.Component {
     this.state = {
       cityName: "",
       cityData: {},
+      displayData: false,
       weatherData: "",
-      moviesData: "",
       lat: "",
       lon: "",
-
-      displayData: false,
-
-      hasError: "",
+      error: false,
     };
   }
 
@@ -42,32 +39,26 @@ class App extends React.Component {
   getCityData = async (e) => {
     e.preventDefault();
     try {
-      // LOCATION
-      await axios
-        .get(
-          `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_KEY}&q=${this.state.cityName}&format=json`
-        )
-        .then((reponseData) => {
-          this.setState({
-            cityData: reponseData.data[0],
-            lat: reponseData.data[0].lat,
-            lon: reponseData.data[0].lon,
-          });
+      const axiosResponse = await axios.get(
+        `https://us1.locationiq.com/v1/search.php?key=pk.d36871f015649f915282f374cff76628&city=${this.state.cityName}&format=json`
+      );
+      this.setState({
+        cityData: axiosResponse.data[0],
+        lat: axiosResponse.data[0].lat,
+        lon: axiosResponse.data[0].lon,
+        error: false,
+      });
+      const myApiResponse = await axios.get(
+        `${process.env.REACT_APP_URL}/weather?lon=${this.state.lon}&lat=${this.state.lat}`
+      );
+      this.setState({
+        weatherData: myApiResponse.data,
+        displayData: true,
+      });
+    } catch {
+      this.setState({
+        error: true,
 
-          //   // WEATHER
-          axios
-
-            .get(
-              `${process.env.REACT_APP_URL}/weather?&lat=${this.state.lat}&lon=${this.state.lon}`
-            )
-
-            .then((reponseData) => {
-              this.setState({
-                weatherData: reponseData.data,
-                // displayData: true,
-                // we target here the request data // this is the data that we got from the backend
-                alert: false,
-              });
               // MOVIES
               axios
                 .get(
@@ -84,14 +75,6 @@ class App extends React.Component {
           // weatherData: reponseData.data.results,
         });
 
-      //   //--------------------------------------------------------------------------------------------
-    } catch (error) {
-      this.setState({
-        hasError: error.message,
-        alert: true,
-      });
-    }
-  };
   // --------------------------------------------------------------------------------------------
 
   render() {
@@ -117,7 +100,3 @@ class App extends React.Component {
   }
 }
 export default App;
-
-// 3000 for frontend (react)
-// 3002 for backend
-// they shouldn't be same.
