@@ -8,6 +8,9 @@ import SearchForm from "./components/SearchForm";
 import Map from "./components/Map";
 import Forcast from "./components/Forcast";
 import CityData from "./components/CityData";
+import Movies from "./components/Movies";
+
+//---------------------------------------------------------------------------------------------
 
 class App extends React.Component {
   constructor(props) {
@@ -23,15 +26,18 @@ class App extends React.Component {
     };
   }
 
+  //---------------------------------------------------------------------------------------------
+
   updateCityNameState = (e) => {
     this.setState({
       cityName: e.target.value,
     });
   };
 
+  //---------------------------------------------------------------------------------------------
+
   getCityData = async (e) => {
     e.preventDefault();
-
     try {
       const axiosResponse = await axios.get(
         `https://us1.locationiq.com/v1/search.php?key=pk.d36871f015649f915282f374cff76628&city=${this.state.cityName}&format=json`
@@ -52,34 +58,45 @@ class App extends React.Component {
     } catch {
       this.setState({
         error: true,
-      });
-    }
-  };
+
+              // MOVIES
+              axios
+                .get(
+                  `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${this.state.cityName}`
+                )
+                .then((reponseData) => {
+                  this.setState({
+                    weatherData: reponseData.data,
+                    displayData: true,
+                    alert: false,
+                  });
+                });
+            });
+          // weatherData: reponseData.data.results,
+        });
+
+  // --------------------------------------------------------------------------------------------
+
   render() {
     return (
       <div>
         <Header />
-
+        {this.state.alert && <AlertMessage hasError={this.state.error} />}
         <SearchForm
           getCityData={this.getCityData}
           updateCityNameState={this.updateCityNameState}
         />
-
-        {(this.state.error && <AlertMessage />) ||
-          (this.state.displayData && (
-            <div>
-              <Map cityData={this.state.cityData} />
-
-              <CityData cityData={this.state.cityData} />
-
-              <Forcast weather={this.state.weatherData} />
-            </div>
-          ))}
-
+        {this.state.displayData && (
+          <div>
+            <Map cityData={this.state.cityData} />
+            <CityData cityData={this.state.cityData} />
+            <Forcast weather={this.state.weatherData} />
+            <Movies movies={this.state.moviesData} />
+          </div>
+        )}
         <Footer />
       </div>
     );
   }
 }
-
 export default App;
