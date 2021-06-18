@@ -52,9 +52,7 @@ class App extends React.Component {
     } catch {
       this.setState({
         error: true,
-      });
-    }
-  };
+
   render() {
     return (
       <div>
