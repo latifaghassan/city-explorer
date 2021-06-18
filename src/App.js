@@ -18,13 +18,14 @@ class App extends React.Component {
     this.state = {
       cityName: "",
       cityData: {},
-      moviesData: [],
-      displayData: false,
-      error: "",
       weatherData: "",
+      moviesData: "",
       lat: "",
       lon: "",
-      error: false,
+
+      displayData: false,
+
+      hasError: "",
     };
   }
 
@@ -44,65 +45,72 @@ class App extends React.Component {
       // LOCATION
       await axios
         .get(
-          `https://us1.locationiq.com/v1/search.php?key=pk.c16719e875dffaaab1b280dae491a8a9 &q=${this.state.cityName}&format=json`
+          `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_KEY}&q=${this.state.cityName}&format=json`
         )
-        .then((locationResponse) => {
+        .then((reponseData) => {
           this.setState({
-            cityData: locationResponse.data[0],
-            lat: locationResponse.data[0].lat,
-            lon: locationResponse.data[0].lon,
+            cityData: reponseData.data[0],
+            lat: reponseData.data[0].lat,
+            lon: reponseData.data[0].lon,
           });
-        });
-      //--------------------------------------------------------------------------------------------
 
-      // WEATHER
-      axios
-        .get(
-          `${process.env.REACT_APP_URL}/weather?lat=${this.state.lat}&lon=${this.state.lon}`
-        )
-        .then((weatherResponse) => {
-          this.setState({
-            weatherData: weatherResponse.data, // we target here the request data // this is the data that we got from the backend.
-            displayData: true,
-          });
+          //   // WEATHER
+          axios
+
+            .get(
+              `${process.env.REACT_APP_URL}/weather?&lat=${this.state.lat}&lon=${this.state.lon}`
+            )
+
+            .then((reponseData) => {
+              this.setState({
+                weatherData: reponseData.data,
+                // displayData: true,
+                // we target here the request data // this is the data that we got from the backend
+                alert: false,
+              });
+              // MOVIES
+              axios
+                .get(
+                  `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${this.state.cityName}`
+                )
+                .then((reponseData) => {
+                  this.setState({
+                    weatherData: reponseData.data,
+                    displayData: true,
+                    alert: false,
+                  });
+                });
+            });
+          // weatherData: reponseData.data.results,
         });
-      //--------------------------------------------------------------------------------------------
-      // MOVIES
-      axios
-        .get(
-          `${process.env.MOVIE_API_KEY}/movies?&region=${this.state.cityName}`
-        )
-        .then((response) => {
-          this.setState({
-            weatherData: response.data.results,
-            displayData: true,
-          });
-        });
-    } catch {
+
+      //   //--------------------------------------------------------------------------------------------
+    } catch (error) {
       this.setState({
-        error: true,
+        hasError: error.message,
+        alert: true,
       });
     }
   };
-  //---------------------------------------------------------------------------------------------
+  // --------------------------------------------------------------------------------------------
 
   render() {
     return (
       <div>
         <Header />
+        {this.state.alert && <AlertMessage hasError={this.state.error} />}
         <SearchForm
           getCityData={this.getCityData}
           updateCityNameState={this.updateCityNameState}
         />
-        {(this.state.error && <AlertMessage />) ||
-          (this.state.displayData && (
-            <div>
-              <Map cityData={this.state.cityData} />
-              <CityData cityData={this.state.cityData} />
-              <Forcast weather={this.state.weatherData} />
-              <Movies movies={this.state.moviesData} />
-            </div>
-          ))}
+        {this.state.displayData && (
+          <div>
+            <Map cityData={this.state.cityData} />
+            <CityData cityData={this.state.cityData} />
+            <Forcast weather={this.state.weatherData} />
+            <Movies movies={this.state.moviesData} />
+          </div>
+        )}
         <Footer />
       </div>
     );
