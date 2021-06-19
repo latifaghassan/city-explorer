@@ -5,11 +5,13 @@ class Footer extends React.Component {
   render() {
     return (
       <footer className="jumbotron text-center">
-        <p> &copy; 2021</p>
+
+        <p> LATIFA AMAIREH&copy; 2021</p>
+
       </footer>
     );
   }
 }
 
 export default Footer;
-/***********************************/
+

@@ -6,7 +6,7 @@ export class AlertMessage extends Component {
     return (
       <div>
         <Alert variant="danger">
-          This is a {this.props.hasError} alert-check it out!
+          This is a {this.props.error} alert-check it out!
         </Alert>
       </div>
     );

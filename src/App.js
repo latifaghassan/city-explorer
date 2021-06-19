@@ -1,27 +1,29 @@
-import React from "react";
+
+import React, { Component } from "react";
 import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import "bootstrap/dist/css/bootstrap.min.css";
 import AlertMessage from "./components/AlertMessage";
 import SearchForm from "./components/SearchForm";
-import Map from "./components/Map";
-import Forcast from "./components/Forcast";
 import CityData from "./components/CityData";
+import Map from "./components/Map";
 
-class App extends React.Component {
+//------------------------------------------------
+export class App extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
       cityName: "",
       cityData: {},
       displayData: false,
-      weatherData: "",
-      lat: "",
-      lon: "",
+
       error: false,
     };
   }
+  //------------------------------------------------
 
   updateCityNameState = (e) => {
     this.setState({
@@ -38,39 +40,31 @@ class App extends React.Component {
       );
       this.setState({
         cityData: axiosResponse.data[0],
-        lat: axiosResponse.data[0].lat,
-        lon: axiosResponse.data[0].lon,
+
+        displayData: true,
         error: false,
       });
-      const myApiResponse = await axios.get(
-        `${process.env.REACT_APP_URL}/weather?lon=${this.state.lon}&lat=${this.state.lat}`
-      );
-      this.setState({
-        weatherData: myApiResponse.data,
-        displayData: true,
-      });
     } catch {
-      this.setState({
-        error: true,
+      this.setState({ error: true });
+    }
+  };
+  //------------------------------------------------
 
   render() {
     return (
       <div>
         <Header />
-
         <SearchForm
           getCityData={this.getCityData}
           updateCityNameState={this.updateCityNameState}
         />
 
-        {(this.state.error && <AlertMessage />) ||
+        {(this.state.error && <AlertMessage error={this.state.error} />) ||
           (this.state.displayData && (
             <div>
               <Map cityData={this.state.cityData} />
 
               <CityData cityData={this.state.cityData} />
-
-              <Forcast weather={this.state.weatherData} />
             </div>
           ))}
 
@@ -79,5 +73,5 @@ class App extends React.Component {
     );
   }
 }
-
+//------------------------------------------------
 export default App;

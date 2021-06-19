@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import Image from 'react-bootstrap/Image';
+
 
 export class Map extends Component {
   render() {
@@ -16,4 +16,3 @@ export class Map extends Component {
 }
 
 export default Map;
-//roundedCircle/>
