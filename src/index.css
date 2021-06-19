@@ -1,13 +1,56 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url("https://fonts.googleapis.com/css2?family=Pattaya&display=swap");
+
+* {
+  background-color: rgba(56, 51, 51, 0.897);
+}
+.jumbotron {
+  text-align: center;
+  color: rgb(247, 236, 236);
+}
+.header {
+  font-family: "Pattaya", sans-serif;
+  padding-top: 1%;
+  padding-bottom: 1%;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.form {
+  color: rgb(218, 204, 204);
+  font-weight: bold;
+  text-align: center;
+  margin-left: 30%;
+  margin-right: 30%;
+  padding-bottom: 5%;
+}
+
+.movies {
+  margin-left: 30%;
+  margin-right: 30%;
+  border-radius: 50%;
+}
+
+img {
+  margin-left: 30%;
+  margin-right: 30%;
+  border-radius: 50%;
+  padding-bottom: 3%;
+}
+
+.display_name {
+  margin-left: 40%;
+  margin-right: 30%;
+  font-weight: bold;
+  color: rgb(168, 132, 132);
+}
+
+.lat,
+.lon {
+  margin-left: 46%;
+  margin-right: 30%;
+  color: beige;
+}
+
+.forcast {
+  margin-left: 46%;
+  margin-right: 30%;
+  color: rgb(255, 255, 255);
 }

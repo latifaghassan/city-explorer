@@ -20,11 +20,10 @@ export class App extends Component {
       cityData: {},
       MovieData: [],
       displayData: false,
-      error: false,
       weatherData: [],
-
       lat: "",
       lon: "",
+      error: false,
     };
   }
   //------------------------------------------------
@@ -35,6 +34,7 @@ export class App extends Component {
   };
   //------------------------------------------------
 
+  // WEATHER :
   getWeatherData = async () => {
     try {
       const myApiResponseW = await axios.get(
@@ -43,13 +43,15 @@ export class App extends Component {
       this.setState({
         weatherData: myApiResponseW.data,
       });
-      // console.log("myApiResponseW",myApiResponseW);
     } catch {
       this.setState({
         error: true,
       });
     }
   };
+
+  //-----------------------------------------------------------------------------
+  // MOVIES :
   getMovieData = async () => {
     try {
       const myApiResponseM = await axios.get(
@@ -59,18 +61,19 @@ export class App extends Component {
         MovieData: myApiResponseM.data,
         displayData: true,
       });
-      // console.log("myApiResponseM",myApiResponseM);
     } catch {
       this.setState({
         error: true,
       });
     }
   };
+  //----------------------------------------------------------------------------
+  // CITY DATA
   getCityData = async (e) => {
     e.preventDefault();
     try {
       const axiosResponse = await axios.get(
-        `https://us1.locationiq.com/v1/search.php?key=pk.83c86caa48f11d093c8138a3a3fc4185&city=${this.state.cityName}&format=json`
+        `https://us1.locationiq.com/v1/search.php?key=pk.65c6ac3301c2126b80bd164960bd53c1&city=${this.state.cityName}&format=json`
       );
       this.setState({
         cityData: axiosResponse.data[0],
@@ -78,7 +81,6 @@ export class App extends Component {
         lon: axiosResponse.data[0].lon,
         error: false,
       });
-      // console.log("axiosResponse",axiosResponse);
 
       this.getWeatherData();
       this.getMovieData();
@@ -101,9 +103,8 @@ export class App extends Component {
         {(this.state.error && <AlertMessage error={this.state.error} />) ||
           (this.state.displayData && (
             <div>
-              <Map cityData={this.state.cityData} />
-
               <CityData cityData={this.state.cityData} />
+              <Map cityData={this.state.cityData} />
 
               <Forcast weather={this.state.weatherData} />
 
