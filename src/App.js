@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -13,6 +14,7 @@ import Movies from "./components/Movies";
 
 //------------------------------------------------
 export class App extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -20,6 +22,7 @@ export class App extends Component {
       cityData: {},
       MovieData: [],
       displayData: false,
+
       error: false,
       weatherData: [],
 
@@ -28,6 +31,7 @@ export class App extends Component {
     };
   }
   //------------------------------------------------
+
   updateCityNameState = (e) => {
     this.setState({
       cityName: e.target.value,
@@ -68,6 +72,7 @@ export class App extends Component {
   };
   getCityData = async (e) => {
     e.preventDefault();
+
     try {
       const axiosResponse = await axios.get(
         `https://us1.locationiq.com/v1/search.php?key=pk.83c86caa48f11d093c8138a3a3fc4185&city=${this.state.cityName}&format=json`
@@ -89,6 +94,7 @@ export class App extends Component {
     }
   };
   //------------------------------------------------
+
   render() {
     return (
       <div>
@@ -116,6 +122,5 @@ export class App extends Component {
     );
   }
 }
-
 //------------------------------------------------
 export default App;
