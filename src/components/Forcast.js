@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
+
 export class Forcast extends Component {
   render() {
     return (
@@ -15,7 +16,7 @@ export class Forcast extends Component {
               <ListGroup
                 style={{ width: "30%", margin: "Auto", textAlign: "center" }}
               >
-                {weatherObj.datetime}
+                {weatherObj.date}
               </ListGroup>
             </>
           );
@@ -24,4 +25,5 @@ export class Forcast extends Component {
     );
   }
 }
+
 export default Forcast;
