@@ -1,53 +1,56 @@
-@import url("https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap");
-/* body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@import url("https://fonts.googleapis.com/css2?family=Pattaya&display=swap");
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
+* {
+  background-color: rgba(56, 51, 51, 0.897);
+}
+.jumbotron {
+  text-align: center;
+  color: rgb(247, 236, 236);
+}
+.header {
+  font-family: "Pattaya", sans-serif;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
 
 .form {
-  margin-right: 40%;
-  margin-left: 39%;
+  color: rgb(218, 204, 204);
+  font-weight: bold;
+  text-align: center;
+  margin-left: 30%;
+  margin-right: 30%;
+  padding-bottom: 5%;
+}
+
+.movies {
+  margin-left: 30%;
+  margin-right: 30%;
+  border-radius: 50%;
+}
+
+img {
+  margin-left: 30%;
+  margin-right: 30%;
+  border-radius: 50%;
   padding-bottom: 3%;
-  font-family: "Fugaz One", cursive;
-  color: rgb(61, 71, 99);
 }
 
-.header {
-  color: rgb(137, 143, 158);
-  font-family: "Fugaz One", cursive;
+.display_name {
+  margin-left: 40%;
+  margin-right: 30%;
+  font-weight: bold;
+  color: rgb(168, 132, 132);
 }
 
-.button {
-  margin-left: 37%;
-}
-
-.map {
-  margin-right: 20%;
-  margin-left: 34%;
-}
-
-.city {
-  margin-right: 20%;
-  margin-left: 47%;
-}
-
-.city1 {
-  margin-right: 20%;
+.lat,
+.lon {
   margin-left: 46%;
+  margin-right: 30%;
+  color: beige;
 }
 
-.error {
-  margin-right: 20%;
-  margin-left: 45%;
-  font-size: 50px;
-  color: red;
+.forcast {
+  margin-left: 46%;
+  margin-right: 30%;
+  color: rgb(255, 255, 255);
 }
