@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+
 export class SearchForm extends Component {
   render() {
     return (
@@ -26,4 +27,5 @@ export class SearchForm extends Component {
     );
   }
 }
+
 export default SearchForm;
