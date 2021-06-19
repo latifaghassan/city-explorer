@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Pattaya&display=swap");
 
 * {
-  background-color: rgba(56, 51, 51, 0.897);
+  background-color: rgba(219, 201, 201, 0.897);
 }
 .jumbotron {
   text-align: center;
@@ -14,7 +14,7 @@
 }
 
 .form {
-  color: rgb(218, 204, 204);
+  color: rgb(95, 35, 35);
   font-weight: bold;
   text-align: center;
   margin-left: 30%;
@@ -46,11 +46,11 @@ img {
 .lon {
   margin-left: 46%;
   margin-right: 30%;
-  color: beige;
+  color: rgb(133, 44, 66);
 }
 
 .forcast {
   margin-left: 46%;
   margin-right: 30%;
-  color: rgb(255, 255, 255);
+  color: rgb(177, 80, 80);
 }
